@@ -1,0 +1,1 @@
+export const JWT_SECRET = 'your-very-secure-secret-key'; // Change this to a strong secret

@@ -1,16 +1,11 @@
 // src/main.ts
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  const corsOptions: CorsOptions = {
-    origin: ['http://localhost:3000', 'https://fashion-brand.vercel.app'],
-    methods: 'GET,POST,PUT,DELETE',
-    allowedHeaders: 'Content-Type,Authorization',
-  };
-  app.enableCors(corsOptions);
-  await app.listen(process.env.PORT || 3001);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  app.enableCors(); // Allows requests from any origin (adjust for security if needed)
+  await app.listen(3000);
 }
 bootstrap();
